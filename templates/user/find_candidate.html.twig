@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | {{ user.name }} {{ user.lastname }} {% endblock %}
+
+{% block body %}
+{% if 'ROLE_CANDIDATE' in user.roles %}
+    <h4>MIJN PROFIEL</h4>
+    
+    <br>
+    <img src="{{ user.profilefile }}" width="200px">
+    <br>
+    <table>
+        <thead>
+            <tr align="left">
+                <th>voornaam</th>
+                <th>achternaam</th>
+                <th>email</th>
+                <th>geboortedatum</th>
+                <th>telefoonnummer</th>
+                <th>adres</th>
+                <th>postcode</th>
+                <th>woonplaats</th>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.dateofbirth |date("d-m-Y") }}</td>
+                <td>{{ user.phonenumber }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.postalcode }}</td>
+                <td>{{ user.city }}</td>
+            <tr>
+        </tbody>
+    </table>
+        <br>
+    <h4>MOTIVATIE</h4>
+    {{ user.biography }}
+
+{% else %}
+Deze kandidaat bestaat niet.
+{% endif %}
+{% endblock %}

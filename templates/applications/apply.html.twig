@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | Sollicitatie verstuurd! {% endblock %}
+
+{% block body %}
+
+{% if application is empty %}
+U heeft al op deze vacature gesolliciteerd.
+{% else %}
+Gesolliciteerd voor {{ application.jobs.title }} voor {{ application.jobs.user.name }}
+{% endif %}
+
+{% endblock %}

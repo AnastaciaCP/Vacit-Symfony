@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | Profiel bewerken{% endblock %}
+
+
+{% block body %}
+
+MIJN PROFIEL  
+
+<form action="{{ path('edit_profile') }}" method="post">
+    <label>voornaam</label>
+    <input type="text" name="name" value="{{ user.name }}" required>
+    achternaam
+    <input type="text" name="lastname" value="{{ user.lastname }}" required><br />
+    email
+    <input type="email" name="email" value="{{ user.email }}" required><br />
+    geboortedatum
+    <input type="date" name="dateofbirth" value="{{ user.dateofbirth | date("Y-m-d") }}" required>
+    telefoonnummer
+    <input type="tel" name="phonenumber" value="{{ user.phonenumber }}" required><br />
+    adres
+    <input type="text" name="address" value="{{ user.address }}" required><br />
+    postcode
+    <input type="text" name="postalcode" value="{{ user.postalcode }}" required>
+    woonplaats
+    <input type="text" name="city" value="{{ user.city }}" required><br />
+    MOTIVATIE
+    <textarea name="biography" required>{{ user.biography }}</textarea><br />
+
+    <form action="{{ path('uploadCV') }}" method="post" enctype="multipart/form-data">
+    Selecteer een .doc, .docx of .pdf bestand om je CV toe te voegen.
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="CV uploaden" name="submit">
+    </form>
+
+    <br>
+    <br>
+
+    <div>
+        <button type="submit" name="Opslaan">
+             Opslaan<i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+</form>
+
+
+{% endblock %}

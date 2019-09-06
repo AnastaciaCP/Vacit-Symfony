@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | Sollicitaties voor {{ job.title }}{% endblock %}
+
+{% block body %}
+
+Sollicitaties voor {{ job.title }}
+
+<table>
+<thead>
+    <tr align="left">  
+        <th>Datum</th>
+        <th>Kandidaat</th>
+        <th>Uitgenodigd</th>
+    <tr>
+</thead>
+<tbody>
+{% for a in applications %}
+    <tr>
+        <td>{{ a.dateapplication | date("d-m-Y")}}</td>
+        <td><a href="{{ path('candidate', {id: a.candidate.id }) }}">{{ a.candidate.name }} {{ a.candidate.lastname }}</a></td>
+        {% if a.invitation == true %}
+        <td>{{ true | inviteCheckmark }}</td>
+        {% else %}
+        <td><a href="{{ path('invite', {id: a.id }) }}">{{ false | inviteCheckmark }}</a></td>
+        {% endif %}
+    <tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | {{jobs.title}} voor {{jobs.user.name}}{% endblock %}
+
+{% block body %}
+
+<i class="{{ jobs.logo }}"></i>
+<img src="{{ jobs.user.profilefile }}">
+
+<div>{{ jobs.date | date("d-m-Y") }}</div>
+
+<div>{{ jobs.title}} voor {{ jobs.user.name }}</div>
+<div>Niveau: {{ jobs.level.level}}</div>
+
+<div>{{ jobs.user.city }}</div>
+<div>{{ jobs.description }}</div>
+<br>
+ {% if is_granted("ROLE_CANDIDATE") %}
+<div><a href="{{ path('apply', { 'id': jobs.id }) }}">SOLLICITEER DIRECT! <i class="fas fa-arrow-right"></i></a></div>
+{% else %}
+<div><a href="{{ path('fos_user_security_login') }}">Log in om te solliciteren!</a></div>
+{% endif %}
+{% if difjobs is empty %}
+Geen andere vacatures van <a href="{{ path('employer', {id:jobs.user.id }) }}">{{ jobs.user.name }}</a> gevonden! 
+{% else %}
+<br>
+Meer vacatures van <a href="{{ path('employer', {id:jobs.user.id }) }}">{{ jobs.user.name }}</a><br />
+<br>
+
+<table>
+<thead>
+    <tr align="left">
+        <th>Datum </th>
+        <th>Vacature </th>
+        <th>Niveau</th>
+    <tr>
+</thead>
+<tbody>
+{% for job in difjobs %}
+    
+    <tr>
+        <td>{{job.date | date("d-m-Y") }}</td>
+        <td><a href="{{ path('job', {id: job.id }) }}"> {{ job.title }}</a></td>
+        <td>{{ job.level.level }}</td>
+    <tr>
+{% endfor %}
+
+</tbody>
+</table>
+{% endif %} 
+{% endblock %}

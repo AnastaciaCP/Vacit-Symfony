@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | Mijn Sollicitaties{% endblock %}
+
+{% block body %}
+Mijn Sollicitaties
+
+<table>
+<thead>
+    <tr align="left">  
+        <th>Datum</th>
+        <th>Vacature</th>
+        <th>Bedrijf</th>
+        <th>Uitgenodigd</th>
+    <tr>
+</thead>
+<tbody>
+{% for a in applications %}
+    <tr>
+        <td>{{ a.dateapplication | date("d-m-Y")}}</td>
+        <td><a href="{{ path('job', {id: a.jobs.id }) }}">{{ a.jobs.title }}</a></td>
+        <td>{{ a.jobs.user.name }}</td>
+        {% if a.invitation == true %}
+        <td>{{ true | showCheckmark }}</td>
+        {% else %}
+        <td> {{ false | showCheckmark }}</td>
+        {% endif %}
+    <tr>
+{% endfor %}
+
+</tbody>
+</table>
+{% endblock %}

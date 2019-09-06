@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | {{ user.name }} {% endblock %}
+
+{% block body %}
+    {% if 'ROLE_EMPLOYER' in user.roles %}
+    <h4>ONS PROFIEL</h4>
+    <br>
+    <img src="{{ user.profilefile }}" width="200px">
+    <br>
+    <table>
+        <thead>
+            <tr align="left">
+                <th>naam</th>
+                <th>email</th>
+                <th>telefoonnummer</th>
+                <th>adres</th>
+                <th>postcode</th>
+                <th>woonplaats</th>
+            <tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phonenumber }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.postalcode }}</td>
+                <td>{{ user.city }}</td>
+            <tr>
+        </tbody>
+    </table>
+        <br>
+    <h4>OVER ONS</h4>
+    {{ user.biography }}
+    <br>
+    <br>
+    <h6>Onze vacatures</h7>
+    <br>
+    <table>
+        <thead>
+            <tr align="left">
+                <th>Datum </th>
+                <th>Vacature </th>
+                <th>Niveau</th>
+            <tr>
+        </thead>
+        <tbody>
+        {% for job in jobs %}
+            
+            <tr>
+                <td>{{job.date | date("d-m-Y") }}</td>
+                <td><a href="{{ path('job', {id: job.id }) }}"> {{ job.title }}</a></td>
+                <td>{{ job.level.level }}</td>
+            <tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    {% else %}
+    Deze werkgever bestaat niet.
+    {% endif %}
+{% endblock %}

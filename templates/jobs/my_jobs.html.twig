@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAC!T | Mijn Vacatures{% endblock %}
+
+{% block body %}
+Mijn Vacatures
+
+<table>
+<thead>
+    <tr align="left">  
+        <th>Datum</th>
+        <th>Vacature</th>
+        <th>Sollicitaties</th>
+    <tr>
+</thead>
+<tbody>
+{% for j in jobs %}
+    <tr>
+        <td>{{ j.date | date("d-m-Y")}}</td>
+        <td><a href="{{ path('job', {id: j.id }) }}">{{ j.title }}</a></td>
+        <td><a href="{{ path('job_applications', { 'id': j.id }) }}"><i class="fas fa-arrow-right"></i></td>
+    <tr>
+{% endfor %}
+
+</tbody>
+</table>
+{% endblock %}
